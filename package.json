@@ -4,13 +4,20 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
-    "gulp": "^3.9.1",
-    "gulp-livereload": "^3.8.1",
-    "gulp-plumber": "^1.2.0",
-    "gulp-sass": "^4.0.1",
+    "del": "^3.0.0",
     "gulp-sourcemaps": "^2.6.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "browser-sync": "^2.24.5",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-browserify": "^0.5.1",
+    "gulp-changed": "^3.2.0",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-plumber": "^1.2.0",
+    "gulp-sass": "^4.0.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
