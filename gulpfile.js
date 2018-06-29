@@ -9,6 +9,7 @@ var imagemin = require('gulp-imagemin');
 var changed = require('gulp-changed');
 var sourcemaps = require('gulp-sourcemaps');
 var plumber = require('gulp-plumber');
+var runSequence = require('run-sequence');
 var livereload = require('gulp-livereload');
 
     gulp.task('browser-sync', function() {
@@ -31,11 +32,16 @@ gulp.task('default', function() {
   console.groupEnd();
 });
 
-gulp.task('clean:trash', function() {
-  return del([
-      'trash/**/*',
-      '!trash/styles.css',
-  ]);
+// Serve files from the src/ folder of this project
+gulp.task('browserSync-dev', () => {
+    browserSync.init({
+        server: "src"
+    });
+});
+
+// Reload task
+gulp.task('bs-reload', () => {
+    browserSync.reload();
 });
 
 gulp.task('minify', () =>
@@ -54,7 +60,7 @@ gulp.task('scripts', function() {
 });
 
 gulp.task('scss', () => {
-  const sassInput = 'src/scss/styles.scss';
+  const sassInput = 'src/scss/**';
   const cssOutput = 'src/css';
 
   return gulp.src(sassInput)
@@ -85,6 +91,31 @@ gulp.task('scss', () => {
         .pipe(reload({stream:true}));
 });
 
+gulp.task('watch', ['browserSync-dev','scss'], () => {
+    /* Watch scss, run the sass task on change. */
+    gulp.watch('app/scss/**/*.scss', ['scss'])
+    .on('change', function(event){
+        console.log('Le fichier SCSS ' + event.path + ' a ete modifie')
+    });
+     /* Watch JS files, run the scripts task on change. */
+    gulp.watch('app/scripts/*.js', ['bs-reload'])
+    .on('change', function(event){
+        console.log('Le fichier JS ' + event.path + ' a ete modifie')
+    });
+    /* Watch .html files, run the bs-reload task on change. */
+    gulp.watch('app/**/*.html', ['bs-reload'])
+    .on('change', function(event){
+        console.log('Le fichier HTML ' + event.path + ' a ete modifie')
+    });
+});
+
+//Run DevServer with liveReload
+gulp.task('run:dev' , (callback) => {
+    runSequence(
+        ['scss','browserSync-dev','watch'],
+        callback)
+});
+
 gulp.task('watch', function() {
   livereload.listen();
   gulp.watch('src/scss/*.scss', ['scss']);
@@ -92,4 +123,4 @@ gulp.task('watch', function() {
 
 
 
-gulp.task('default', ['browser-sync', 'clean:trash', 'minify', 'scripts', 'scss', 'watch']);
+gulp.task('default', ['browser-sync', 'minify', 'scripts', 'scss', 'watch']);
