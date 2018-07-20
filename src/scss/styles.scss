@@ -1,5 +1,9 @@
 @import "partials/variables";
 @import "partials/mixins";
+@import "partials/fonts";
+
+@include google-font("Alegreya+Sans");
+@include google-font("Titillium+Web");
 
 body {
   font-family: $text-font;
