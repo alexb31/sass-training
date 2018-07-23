@@ -5,10 +5,13 @@
 @include google-font("Alegreya+Sans");
 @include google-font("Titillium+Web");
 
+@include fancy-links;
+
 body {
   font-family: $text-font;
   color: $text-color;
-
+  color: rgb(10, 15, 50);
+  background-color: hsl(60, 50%, 100%);
   @include large-screens {
     font-size: 125%
   }
@@ -28,6 +31,10 @@ p {
 
 a {
   color: $link-color;
+
+  &:hover {
+    color: darken($link-color, 15%);
+  }
 }
 
 .warning-button {
@@ -55,6 +62,14 @@ a {
 
     a {
       color: $menu-item-color;
+      padding: 6px 8px;
+      border-bottom: 1px solid transparentize(#fefefe, 1);
+      transition: border-bottom 0.5s;
+      transition-timing-function: ease-in-out;
+
+      &:hover {
+        border-bottom: 1px solid opacify(#fefefe, .5)
+      }
     }
   }
   
