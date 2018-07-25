@@ -18,9 +18,16 @@
   font-size: em(18px);
 }
 
+$contrast: high;
 body {
   font-family: $text-font;
-  color: $text-color;
+  @if $contrast == high {
+    color: #000;
+  } @else if $contrast == low {
+    color: #999;
+  } @else {
+    color: $text-color;
+  }
   font-size: em(18px);
 
   @include large-screens {
