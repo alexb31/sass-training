@@ -8,6 +8,16 @@
 
 @include fancy-links;
 
+.error {
+  color: red
+}
+
+.critical-error {
+  @extend .error;
+  bottom: 1px solid red;
+  font-size: em(18px);
+}
+
 body {
   font-family: $text-font;
   color: $text-color;
@@ -41,6 +51,17 @@ a {
 .warning-button {
   @include warning;
   padding: 8px 12px;
+}
+
+.cta-button {
+  @extend .warning-button;
+  @include rounded;
+  font-weight: bold;
+}
+
+.super-cta-button {
+  @extend .cta-button;
+  font-size: em(20px);
 }
 
 @include apply-to-ie-6 {
