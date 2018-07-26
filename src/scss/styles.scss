@@ -9,6 +9,20 @@
    }
 }
 
+$speakers: bob-bankre, patty-plume, sandra-smith;
+@each $speaker in $speakers {
+  .#{$speaker}-profile {
+    background-image: url('img/#{$speaker}.png');
+  }
+}
+
+$font-sizes: (tiny: 8px, small: 11px, medium: 13px, large: 18px);
+@each $name, $size in $font-sizes {
+  .#{$name} {
+    font-size: $size;
+  }
+}
+
 @include google-font("Alegreya+Sans");
 @include google-font("Titillium+Web");
 
