@@ -23,6 +23,14 @@ $font-sizes: (tiny: 8px, small: 11px, medium: 13px, large: 18px);
   }
 }
 
+$j: 2;
+@while $j <= 8 {
+  .picture-#{$j} {
+    width: $j * 10%;
+  }
+  $j: $j - 2;
+}
+
 @include google-font("Alegreya+Sans");
 @include google-font("Titillium+Web");
 
